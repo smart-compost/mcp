@@ -1,6 +1,6 @@
 {
   "name": "@smart-compost/mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for the Smart Compost platform. Exposes the Integration API as tools over local stdio; the x-api-key stays on the client.",
   "license": "Apache-2.0",
   "type": "module",
