@@ -1,3 +1,5 @@
+// Copyright 2026 Smart Compost
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Tiny fetch wrapper for the Smart Compost Integration API.
  *

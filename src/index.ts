@@ -1,8 +1,10 @@
 #!/usr/bin/env node
+// Copyright 2026 Smart Compost
+// SPDX-License-Identifier: Apache-2.0
 /**
- * Local stdio MCP server over the Smart Compost Integration API (spike).
+ * Local stdio MCP server over the Smart Compost Integration API.
  *
- * Six curated, workflow-oriented, read-only tools — NOT a 1:1 mirror of every
+ * Six curated, workflow-oriented, read-only tools, NOT a 1:1 mirror of every
  * endpoint. Discovery tools come first so an agent can find the IDs it needs
  * before calling the measurement tools (the same flow a human integrator does).
  */
