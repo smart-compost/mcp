@@ -59,14 +59,6 @@ Config:
 Then ask the agent things like "list my composting processes" or "show the
 latest readings for device 666".
 
-## Local development
-
-```bash
-npm install
-npm run build      # tsc -> dist/
-npm run smoke      # handshake + tools/list (no key needed), expect 6 tools
-```
-
 ## License
 
 Apache-2.0
