@@ -1,0 +1,40 @@
+{
+  "name": "@smart-compost/mcp",
+  "version": "0.1.0",
+  "description": "MCP server for the Smart Compost platform. Exposes the Integration API as tools over local stdio; the x-api-key stays on the client.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "bin": {
+    "smartcompost-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smart-compost/mcp.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "smoke": "node scripts/smoke.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
