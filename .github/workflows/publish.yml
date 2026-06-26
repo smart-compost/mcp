@@ -1,0 +1,28 @@
+name: Publish
+
+# Token-less publish to npm via OIDC Trusted Publishing.
+# Trigger: push a version tag (e.g. v0.1.2). No NPM_TOKEN/secret needed.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  id-token: write # required: lets the runner mint the OIDC token npm validates
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false # never cache in release builds
+      - run: npm install -g npm@latest # ensure npm >= 11.5.1 (OIDC support)
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm publish # OIDC auto-detected; provenance generated automatically
