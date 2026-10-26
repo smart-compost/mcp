@@ -56,5 +56,5 @@ npm run dev                    # tsx src/index.ts, for a manual session
 
 ## Git
 
-- Only `main` exists here (no `develop`): branch from `main`, PR to `main`.
+- No `develop` branch here: branch from `main` and PR to `main`.
 - Conventional Commits in English (`feat:`, `docs:`, `ci:`, `chore(release):`).
