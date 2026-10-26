@@ -53,8 +53,8 @@ Config:
 
 - `SMARTCOMPOST_API_KEY` (required): your Integration API key (`sk_live_...`),
   generated on the Integrations page.
-- `SMARTCOMPOST_API_BASE` (optional): defaults to `https://test.smart-compost.com.br/api`.
-  Use `https://smart-compost.com.br/api` for production.
+- `SMARTCOMPOST_API_BASE` (optional): defaults to `https://test.smartcompost.com.br/api`.
+  Use `https://smartcompost.com.br/api` for production.
 
 Then ask the agent things like "list my composting processes" or "show the
 latest readings for device 666".
