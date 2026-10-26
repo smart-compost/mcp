@@ -49,9 +49,10 @@ npm run dev                    # tsx src/index.ts, for a manual session
   registry.npmjs.org for this package, overriding the org default. No token is stored anywhere.
 - `publish.yml` publishes through npm Trusted Publishing (OIDC) when a `v*` tag is pushed (or by
   manual dispatch), with provenance. `prepublishOnly` builds.
-- Release: bump `version` in `package.json` and the server version in `src/index.ts` (they have
-  drifted), commit `chore(release): X.Y.Z`, tag `vX.Y.Z` on that commit, push the tag.
-- `files` ships only `dist`, `README.md`, `LICENSE` and `NOTICE`; Apache-2.0, with SPDX headers in sources.
+- Release: bump `version` in `package.json` (the server announces it from there), commit
+  `chore(release): X.Y.Z`, tag `vX.Y.Z` on that commit, push the tag.
+- `files` ships `dist`, `README.md`, `LICENSE` and `NOTICE`, and npm adds `package.json`, which
+  `src/index.ts` reads at start. Apache-2.0, with SPDX headers in sources.
 
 ## Git
 
