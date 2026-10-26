@@ -8,6 +8,7 @@
  * endpoint. Discovery tools come first so an agent can find the IDs it needs
  * before calling the measurement tools (the same flow a human integrator does).
  */
+import { createRequire } from 'node:module';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
@@ -27,8 +28,12 @@ Notes:
   genuinely need bulk history.
 `.trim();
 
+// The announced version is the published one: read from package.json, which npm
+// always ships, so a release only bumps package.json.
+const { version } = createRequire(import.meta.url)('../package.json') as { version: string };
+
 const server = new McpServer(
-  { name: 'smartcompost', version: '0.1.0' },
+  { name: 'smartcompost', version },
   { instructions: INSTRUCTIONS },
 );
 
