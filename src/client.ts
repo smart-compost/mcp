@@ -15,6 +15,8 @@ export interface ApiResult {
   status: number;
   data?: unknown;
   errorText?: string;
+  /** Seconds from the Retry-After header, on a 429. */
+  retryAfter?: number;
 }
 
 function baseUrl(): string {
@@ -46,9 +48,13 @@ export async function apiGet(
     }
   }
 
+  // A missing key throws here, outside the try: its message is already the fix,
+  // and it must not be reported as a network error.
+  const headers = { 'x-api-key': apiKey() };
+
   let res: Response;
   try {
-    res = await fetch(url, { headers: { 'x-api-key': apiKey() } });
+    res = await fetch(url, { headers });
   } catch (err) {
     return { ok: false, status: 0, errorText: `Network error: ${(err as Error).message}` };
   }
@@ -66,7 +72,13 @@ export async function apiGet(
       data && typeof data === 'object' && 'message' in (data as Record<string, unknown>)
         ? String((data as Record<string, unknown>).message)
         : text || res.statusText;
-    return { ok: false, status: res.status, errorText: message };
+    const retryAfter = Number(res.headers.get('retry-after'));
+    return {
+      ok: false,
+      status: res.status,
+      errorText: message,
+      ...(Number.isFinite(retryAfter) && retryAfter > 0 ? { retryAfter } : {}),
+    };
   }
 
   return { ok: true, status: res.status, data };
