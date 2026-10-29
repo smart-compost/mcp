@@ -25,6 +25,24 @@ with discovery.
 | `get_device_measurements` | `GET /devices/{deviceId}/measurements` | History, paginated |
 | `get_process_measurements` | `GET /processes/{processId}/measurements` | History, all devices |
 
+Every tool is annotated read-only and idempotent, and declares an `outputSchema`.
+A result carries the response as `structuredContent` and the same JSON as text in
+`content`, so clients that read either one get the same data. The two list tools
+wrap their arrays as `{ "processes": [...] }` and `{ "devices": [...] }`, since
+structured content must be an object.
+
+Errors come back as tool results with `isError: true`, the API's message, and
+the next step: on 401/403 generate a new key on the Integrations page; on 404 call
+`list_devices` or `list_processes` for a valid id; on 429 wait (the `Retry-After`
+delay when the API sends one).
+
+## Protocol
+
+Speaks MCP 2026-07-28 (`server/discover`, no handshake) and the 2025 revisions
+that open with `initialize`, from the same binary. The era is chosen per
+connection by what the client sends first, so clients that still open with
+`initialize` (Claude Desktop, Cursor) keep working unchanged.
+
 ## Install
 
 Add it in one line, no clone or build:
