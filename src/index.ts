@@ -55,12 +55,14 @@ const sensor = z.looseObject({
   category: z.string(),
 });
 
+// The four timing-quality fields came with composting-backend#104 and are optional here
+// until every environment the README points at sends them; production did not yet.
 const measurement = z.looseObject({
   measuredAt: z.string(),
-  ingestedAt: z.string(),
-  lagSeconds: z.number().nullable(),
-  measuredAtQuality: z.string(),
-  isMeasuredAtTrusted: z.boolean(),
+  ingestedAt: z.string().optional(),
+  lagSeconds: z.number().nullable().optional(),
+  measuredAtQuality: z.string().optional(),
+  isMeasuredAtTrusted: z.boolean().optional(),
   location: z.looseObject({ latitude: z.number(), longitude: z.number() }),
   metrics: z.record(z.string(), z.number()),
 });
